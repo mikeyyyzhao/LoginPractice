@@ -4,8 +4,9 @@ import firebase from 'firebase'
 
 class LoadingScreen extends Component {
 
+  
   checkIfLoggedIn= () => {
-    firebase.auth().onAuthStateChanged(function(user){
+    firebase.auth().onAuthStateChanged(user=>{
       if (user){
         this.props.navigation.navigate('DashboardScreen');
       }
