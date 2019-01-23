@@ -32,6 +32,27 @@ class LoginScreen extends Component {
         // Sign in with credential from the Google user.
         firebase.auth().signInAndRetrieveDataWithCredential(credential).then(function(result){
           console.log('user signedin');
+          if (result.additionalUserInfo.isNewUser)
+          {
+            firebase
+              .database()
+              .ref('/users/' + result.user.uid)
+              .set({
+                gmail: result.user.email,
+                profile_picture: result.additionalUserInfo.profile.picture,
+                locale: result.additionalUserInfo.profile.locale,
+                first_name: result.additionalUserInfo.profile.give_name,
+                last_name: result.additionalUserInfo.profile.family_name,
+                created_at: Date.now()
+              })
+          }
+          else{
+            firebase
+              .database()
+              .ref('/users/' + result.user.uid).update({
+                last_logged_in: Date.now()
+              })
+          }
           firebase
             .database()
             .ref('/users/' + result.user.uid)
