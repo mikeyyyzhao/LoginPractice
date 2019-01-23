@@ -3,6 +3,6 @@
     authDomain: "reactnative-fef04.firebaseapp.com",
     databaseURL: "https://reactnative-fef04.firebaseio.com",
     projectId: "reactnative-fef04",
-    storageBucket: "",
+    storageBucket: "reactnative-fef04.appspot.com",
     messagingSenderId: "271681026569"
   };
