@@ -8,7 +8,7 @@ import LoginScreen from './screens/LoginScreen'
 import DashboardScreen from './screens/DashboardScreen'
 
 import * as firebase from 'firebase'
-import firebaseConfig from './config'
+import {firebaseConfig} from './config'
 firebase.initializeApp(firebaseConfig)
 
 
