@@ -1,8 +1,8 @@
-export const firebaseConfig = {
-    apiKey: "AIzaSyD1xjhvBNqVxD9Dhg2V_VcdzUHJdGfy36U",
-    authDomain: "logintesting0.firebaseapp.com",
-    databaseURL: "https://logintesting0.firebaseio.com",
-    projectId: "logintesting0",
-    storageBucket: "logintesting0.appspot.com",
-    messagingSenderId: "1094525055576"
+ export const firebaseConfig = {
+    apiKey: "AIzaSyBHxPtADClW1dZkH-PvdE528ARhryjipj8",
+    authDomain: "reactnative-fef04.firebaseapp.com",
+    databaseURL: "https://reactnative-fef04.firebaseio.com",
+    projectId: "reactnative-fef04",
+    storageBucket: "",
+    messagingSenderId: "271681026569"
   };
