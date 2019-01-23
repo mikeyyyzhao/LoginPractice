@@ -7,6 +7,11 @@ import LoadingScreen from './screens/LoadingScreen'
 import LoginScreen from './screens/LoginScreen'
 import DashboardScreen from './screens/DashboardScreen'
 
+import firebase from 'firebase'
+import firebaseConfig from './Config'
+firebase.initializeApp(firebaseConfig)
+
+
 export default class App extends Component {
   render() {
     return (
