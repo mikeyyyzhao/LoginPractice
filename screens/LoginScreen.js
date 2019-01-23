@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import firebase from 'firebase'
+
 class LoginScreen extends Component {
 
   isUserEqual = (googleUser, firebaseUser) => {
@@ -30,8 +31,11 @@ class LoginScreen extends Component {
             googleUser.accessToken
           );
         // Sign in with credential from the Google user.
-        firebase.auth().signInAndRetrieveDataWithCredential(credential).then(function(result){
-          console.log('user signedin');
+        firebase
+          .auth()
+          .signInAndRetrieveDataWithCredential(credential)
+          .then(function(result){
+          console.log('user signedin ');
           if (result.additionalUserInfo.isNewUser)
           {
             firebase
@@ -44,6 +48,9 @@ class LoginScreen extends Component {
                 first_name: result.additionalUserInfo.profile.give_name,
                 last_name: result.additionalUserInfo.profile.family_name,
                 created_at: Date.now()
+              })
+              .then(function(snapshot) {
+
               })
           }
           else{
