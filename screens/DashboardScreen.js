@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-
+import { StyleSheet, Text, View, Button } from 'react-native';
+import firebase from 'firebase'
 class DashboardScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
         <Text>Dashboard</Text>
+        <Button title="Sign out" onPress={()=>firebase.auth().signOut()} />
       </View>
     );
   }
