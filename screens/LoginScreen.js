@@ -38,19 +38,30 @@ class LoginScreen extends Component {
           .signInAndRetrieveDataWithCredential(credential)
           .then(function(result){
             console.log('user signedin ');
+            if (result.additionalUserInfo.isNewUser){
+              firebase
+              .database()
+              .ref('/users/' + result.user.uid)
+              .set({
+                gmail:result.user.email,
+                profile_picture: result.additionalUserInfo.profile.picture,
+                locale: result.additionalUserInfo.profile.locale,
+                first_name: result.additionalUserInfo.profile.given_name,
+                last_name: result.additionalUserInfo.profile.family_name,
+                created_at: Date.now()
+              })
+              .then(function(snapshot){
+                console.log('went through pasting data');
+              })
+            } else{
+            console.log('hit not new user');
             firebase
-            .database()
-            .ref('/users/' + result.user.uid)
-            .set({
-              gmail:result.user.email,
-              profile_picture: result.additionalUserInfo.profile.picture,
-              locale: result.additionalUserInfo.profile.locale,
-              first_name: result.additionalUserInfo.profile.given_name,
-              last_name: result.additionalUserInfo.profile.family_name
-            })
-            .then(function(snapshot){
-              console.log('went through pasting data');
-            })
+              .database()
+              .ref('/users/' + result.user.uid).update({
+                last_logged_in: Date.now()
+              })
+            }
+
 
         })
 
