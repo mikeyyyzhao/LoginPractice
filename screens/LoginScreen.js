@@ -19,6 +19,7 @@ class LoginScreen extends Component {
   }
 
   onSignIn = (googleUser) => {
+
     console.log('Google Auth Response', googleUser);
     // We need to register an Observer on Firebase Auth to make sure auth is initialized.
     var unsubscribe = firebase.auth().onAuthStateChanged(function(firebaseUser) {
@@ -26,6 +27,7 @@ class LoginScreen extends Component {
       // Check if we are already signed-in Firebase with the correct user.
       if (!this.isUserEqual(googleUser, firebaseUser)) {
         // Build Firebase credential with the Google ID token.
+        console.log('not already signed in');
         var credential = firebase.auth.GoogleAuthProvider.credential(
             googleUser.idToken,
             googleUser.accessToken
@@ -35,42 +37,21 @@ class LoginScreen extends Component {
           .auth()
           .signInAndRetrieveDataWithCredential(credential)
           .then(function(result){
-          console.log('user signedin ');
-          if (result.additionalUserInfo.isNewUser)
-          {
+            console.log('user signedin ');
             firebase
-              .database()
-              .ref('/users/' + result.user.uid)
-              .set({
-                gmail: result.user.email,
-                profile_picture: result.additionalUserInfo.profile.picture,
-                locale: result.additionalUserInfo.profile.locale,
-                first_name: result.additionalUserInfo.profile.give_name,
-                last_name: result.additionalUserInfo.profile.family_name,
-                created_at: Date.now()
-              })
-              .then(function(snapshot) {
-
-              })
-          }
-          else{
-            firebase
-              .database()
-              .ref('/users/' + result.user.uid).update({
-                last_logged_in: Date.now()
-              })
-          }
-          firebase
             .database()
             .ref('/users/' + result.user.uid)
             .set({
-              gmail: result.user.email,
+              gmail:result.user.email,
               profile_picture: result.additionalUserInfo.profile.picture,
               locale: result.additionalUserInfo.profile.locale,
-              first_name: result.additionalUserInfo.profile.give_name,
+              first_name: result.additionalUserInfo.profile.given_name,
               last_name: result.additionalUserInfo.profile.family_name
-
             })
+            .then(function(snapshot){
+              console.log('went through pasting data');
+            })
+
         })
 
         .catch(function(error) {
